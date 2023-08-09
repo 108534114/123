@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: 教師登入頁面.html");
             exit();
         } else {
-            echo "Error: " . $stmt->error;
+            echo "注册失败，请稍后再试。";
         }
         
         $stmt->close();
