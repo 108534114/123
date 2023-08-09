@@ -41,8 +41,6 @@ if (selectedStudents.length === 0) {
     return;
 }
 
-// ...
-
 // 在生成 cell 时，根据已选择的学生为其添加横线样式
 if (selectedStudents.includes(selectedStudent)) {
     cell.style.textDecoration = 'line-through';
