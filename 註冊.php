@@ -4,36 +4,37 @@ $user = 'root';
 $password = '';
 $database = 'emo';
 
-// 创建数据库连接
+// 建立資料庫連線
 $conn = new mysqli($host, $user, $password, $database);
 
-// 检查连接是否成功
+// 檢查連線是否成功
 if ($conn->connect_error) {
-    die("连接失败: " . $conn->connect_error);
+    die("連線失敗: " . $conn->connect_error);
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = mysqli_real_escape_string($conn, $_POST["name"]);
     $username = mysqli_real_escape_string($conn, $_POST["username"]);
-    $password = $_POST["password"]; // 获取明文密码
+    $password = $_POST["password"]; // 取得明文密碼
     
-    // 在插入数据之前检查用户名是否已存在
+    // 在插入資料之前檢查使用者名稱是否已經存在
     $check_username_query = "SELECT * FROM `老師帳密` WHERE `老師帳號` = '$username'";
     $check_username_result = $conn->query($check_username_query);
     
     if ($check_username_result->num_rows > 0) {
-        echo "帳號已存在，不能重複註冊。";
+        echo "帳號已存在，無法重複註冊。<br>";
+        echo '<a href="註冊頁面.html">返回註冊頁面</a>';
     } else {
-        // 使用预处理语句插入注册信息到数据库
+        // 使用預備語句將註冊資訊插入資料庫
         $stmt = $conn->prepare("INSERT INTO `老師帳密` (`老師姓名`, `老師帳號`, `老師密碼`) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $name, $username, $password);
         
         if ($stmt->execute()) {
-            // 注册成功后，进行页面重定向
+            // 註冊成功後，進行頁面重導向
             header("Location: 教師登入頁面.html");
             exit();
         } else {
-            echo "注册失败，请稍后再试。";
+            echo "註冊失敗，請稍後再試。";
         }
         
         $stmt->close();
