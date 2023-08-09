@@ -34,19 +34,7 @@
             <div class="col-6">
                 <div class="student-list">
                     <h3>學生名單：</h3>
-                    <div>
-                        <label for="student1">
-                            <input type="checkbox" name="studentList" id="student1" value="學號1">
-                            學號1, 姓名: 學生1
-                        </label>
-                    </div>
-                    <div>
-                        <label for="student2">
-                            <input type="checkbox" name="studentList" id="student2" value="學號2">
-                            學號2, 姓名: 學生2
-                        </label>
-                    </div>
-       
+                    <!-- 學生名單內容 -->
                 </div>
             </div>
             <div class="col-6">
@@ -70,203 +58,35 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-        let tableData = []; // 儲存表格資料的陣列
-        const tableGenerator = document.querySelector('.table-generator'); // 宣告tableGenerator變數
+        // 前面的代码...
 
-        // 新增 "隨機生成" 按鈕的點擊事件處理函式
-        function randomFillTableButton() {
-            randomFillTable();
-        }
-
-        // 在 "隨機生成" 按鈕上綁定點擊事件
-        const randomFillButton = document.createElement('button');
-        randomFillButton.textContent = '隨機生成';
-        randomFillButton.classList.add('btn', 'btn-primary', 'me-2');
-        randomFillButton.addEventListener('click', randomFillTableButton);
-
-        // 將 "隨機生成" 按鈕添加到 "table-generator" 區域
-        tableGenerator.appendChild(randomFillButton);
-
-        // 隨機填充表格的函式
-        function randomFillTable() {
-            const table = document.getElementById('table');
-            const selectedStudents = Array.from(document.querySelectorAll('input[name="studentList"]:checked'))
-                .map(checkbox => checkbox.value);
-
-            if (selectedStudents.length === 0) {
-                console.log("請選擇至少一位學生。");
-                return;
-            }
-
-            // 清空原有的表格
-            table.innerHTML = '';
-            tableData = []; // 重置表格資料陣列
-
-            const rows = document.getElementById('rows').value;
-            const columns = document.getElementById('columns').value;
-
-            for (let i = 0; i < rows; i++) {
-                const row = table.insertRow(i);
-                const rowData = []; // 儲存每一列的資料
-
-                for (let j = 0; j < columns; j++) {
-                    const cell = row.insertCell(j);
-                    const randomIndex = Math.floor(Math.random() * selectedStudents.length);
-                    const selectedStudent = selectedStudents[randomIndex];
-
-                    cell.textContent = `學號: ${selectedStudent}`;
-                    
-                    // 儲存表格資料到陣列
-                    rowData.push(selectedStudent);
-                    createDeleteButton(cell, rowData, randomFillButton); // 在每個新增的 cell 中創建刪除按鈕
-                }
-
-                // 將每一列的資料加入到表格資料陣列
-                tableData.push(rowData);
-            }
-        }
-        const getData = () => {
-    axios.get('學生名單.php')
-        .then((res) => {
-            let arr = res.data;
-            const studentList = document.querySelector('.student-list');
-            studentList.innerHTML = '';
-
-            arr.forEach((student, index) => {
-                const studentCheckbox = document.createElement('div');
-                studentCheckbox.innerHTML = `
-                    <label for="student${index + 1}">
-                        <input type="checkbox" name="studentList" id="student${index + 1}" value="${student.學號}">
-                        ${student.學號}, 姓名: ${student.姓名}
-                    </label>
-                `;
-
-                // 添加点击事件监听器来处理选中状态
-                const checkbox = studentCheckbox.querySelector(`#student${index + 1}`);
-                checkbox.addEventListener('click', (event) => {
-                    if (event.target.checked) {
-                        studentCheckbox.style.backgroundColor = 'lightblue';
+        // 将表格数据保存到数据库的函数
+        function saveTableToDatabase() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '座位資料表.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        console.log(xhr.responseText);
                     } else {
-                        studentCheckbox.style.backgroundColor = 'transparent';
-                    }
-                });
-
-                studentList.appendChild(studentCheckbox);
-            });
-        })
-        .catch((error) => console.log(error));
-};
-
-        getData();
-
-        function generateTable() {
-            const table = document.getElementById('table');
-            const rows = document.getElementById('rows').value;
-            const columns = document.getElementById('columns').value;
-
-            // 清空原有的表格
-            table.innerHTML = '';
-            tableData = []; // 重置表格資料陣列
-
-            const selectedStudents = Array.from(document.querySelectorAll('input[name="studentList"]:checked'))
-                .map(checkbox => checkbox.value);
-
-            if (selectedStudents.length === 0) {
-                console.log("請選擇至少一位學生。");
-                return;
-            }
-
-            let studentIndex = 0; // Keep track of the selected student index
-
-            for (let i = 0; i < rows; i++) {
-                const row = table.insertRow(i);
-                const rowData = []; // 儲存每一列的資料
-
-                for (let j = 0; j < columns; j++) {
-                    const cell = row.insertCell(j);
-
-                    // 檢查格子內是否已經有按鈕
-                    if (!cell.querySelector('button')) {
-                        const button = document.createElement('button');
-                        button.textContent = '加入';
-                        button.classList.add('btn', 'btn-primary');
-                        cell.appendChild(button);
-
-                        button.addEventListener('click', function () {
-                            if (studentIndex < selectedStudents.length) {
-                                // Take the selected student and fill the cell with their information
-                                const selectedStudent = selectedStudents[studentIndex++];
-                                console.log(selectedStudent)
-                                cell.textContent = `學號: ${selectedStudent}`;
-                                
-                                // 儲存表格資料到陣列
-                                rowData.push(selectedStudent);
-                                createDeleteButton(cell, rowData, button); // 在每個新增的 cell 中創建刪除按鈕
-                            }
-                        });
+                        console.error('AJAX request failed:', xhr.status, xhr.statusText);
                     }
                 }
-
-                // 將每一列的資料加入到表格資料陣列
-                tableData.push(rowData);
-            }
+            };
+            xhr.send(JSON.stringify({ tableData: tableData }));
         }
 
-        function saveTable() {
-            // 將表格資料作為JavaScript物件傳送到座位資料表.php
-            axios.post('座位資料表.php', { tableData: tableData })
-                .then(response => {
-                    console.log(tableData)
-                    console.log("表格資料已成功儲存到資料庫。");
-                })
-                .catch(error => {
-                    console.error("發生錯誤:", error);
-                });
-        }
+        // 在 DOMContentLoaded 事件中绑定按钮点击事件
+        document.addEventListener('DOMContentLoaded', function () {
+            // ... 其他代码 ...
 
-        function createDeleteButton(cell, rowData, button) {
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = '刪除';
-            deleteButton.classList.add('btn', 'btn-danger', 'btn-sm', 'ms-2');
-            cell.appendChild(deleteButton);
+            const selectAllButton = document.getElementById('btn_all');
+            selectAllButton.addEventListener('click', selectAllStudents);
 
-            deleteButton.addEventListener('click', function () {
-                const rowIndex = cell.parentNode.rowIndex;
-                const columnIndex = cell.cellIndex;
-                cell.textContent = '';
-
-                cell.appendChild(button);
-
-
-                // 從 rowData 陣列中移除被刪除的學生
-                rowData.splice(columnIndex, 1);
-
-                // 更新 tableData 陣列中對應列的資料
-                tableData[rowIndex] = rowData;
-            });
-        }
-
-        function clearTable() {
-            const table = document.getElementById('table');
-            table.innerHTML = '';
-            tableData = []; // 重置表格資料陣列
-        }
-
-        function selectAllStudents() {
-            const checkboxes = document.querySelectorAll('input[name="studentList"]');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = true;
-            });
-        }
-
-        // 在 "學生名單" 區域添加 "全部選取" 按鈕
-        const selectAllButton = document.createElement('button');
-        selectAllButton.textContent = '全部選取';
-        selectAllButton.classList.add('btn', 'btn-primary');
-        selectAllButton.addEventListener('click', selectAllStudents);
-
-        const studentListContainer = document.querySelector('.student-list');
-        studentListContainer.insertBefore(selectAllButton, studentListContainer.firstChild);
+            const saveButton = document.getElementById('save-button');
+            saveButton.addEventListener('click', saveTableToDatabase);
+        });
     </script>
 </body>
 
