@@ -39,20 +39,25 @@ document.addEventListener("DOMContentLoaded", function() {
     successAlert.style.display = "none";
     successAlert.textContent = "註冊成功！將跳轉至登入頁面。";
     
-    form.parentNode.insertBefore(successAlert, form);
+    // 将提示框插入表单后面
+    form.parentNode.insertBefore(successAlert, form.nextSibling);
     
     form.addEventListener("submit", function(event) {
         event.preventDefault();
         
-        // 在這裡可以加入異步的提交代碼，根據實際情況處理註冊邏輯
+        // 在这里可以添加异步的提交代码，根据实际情况处理注册逻辑
         
-        // 模擬註冊成功
+        // 模拟注册成功
         setTimeout(function() {
+            // 隐藏表单
+            form.style.display = "none";
+            // 显示成功提示框
             successAlert.style.display = "block";
+            // 延迟一段时间后跳转到登录页面
             setTimeout(function() {
                 window.location.href = "教師登入頁面.html";
-            }, 2000); // 2秒後跳轉
-        }, 1000); // 1秒後顯示提示框
+            }, 2000); // 2秒后跳转
+        }, 1000); // 1秒后显示提示框
     });
 });
 </script>
