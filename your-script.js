@@ -1,3 +1,12 @@
+// 选中所有学生的函数
+function selectAllStudents() {
+    const checkboxes = document.querySelectorAll('input[name="studentList"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = true;
+    });
+}
+
+// 将表格数据保存到数据库的函数
 function saveTableToDatabase() {
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '座位資料表.php', true);
