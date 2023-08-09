@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if ($check_username_result->num_rows > 0) {
         echo "帳號已存在，無法重複註冊。<br>";
-        echo '<a href="註冊頁面.html">返回註冊頁面</a>';
+        echo '<a href="註冊.html">返回註冊頁面</a>';
     } else {
         // 使用預備語句將註冊資訊插入資料庫
         $stmt = $conn->prepare("INSERT INTO `老師帳密` (`老師姓名`, `老師帳號`, `老師密碼`) VALUES (?, ?, ?)");
