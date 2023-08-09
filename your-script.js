@@ -18,15 +18,3 @@ function selectAllStudents() {
     });
     updateSelectAllButton(); // 更新按钮状态
 }
-document.addEventListener('DOMContentLoaded', function () {
-    const selectAllButton = document.getElementById('btn_all');
-    selectAllButton.addEventListener('click', selectAllStudents);
-
-    const studentCheckboxes = document.querySelectorAll('input[name="studentList"]');
-    studentCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', updateSelectAllButton);
-    });
-
-    const saveButton = document.getElementById('save-button');
-    saveButton.addEventListener('click', saveTableToDatabase);
-});
