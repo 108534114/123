@@ -15,8 +15,11 @@ function saveTableToDatabase() {
 document.addEventListener('DOMContentLoaded', function () {
     // ... 其他程式碼 ...
 
+  // 綁定 "全部選取" 按鈕的點擊事件
+  const selectAllButton = document.getElementById('btn_all');
+  selectAllButton.addEventListener('click', selectAllStudents);
+
     // 綁定 "儲存" 按鈕的點擊事件
     const saveButton = document.getElementById('save-button');
     saveButton.addEventListener('click', saveTableToDatabase);
 });
-
