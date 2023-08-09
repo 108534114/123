@@ -253,7 +253,6 @@
             tableData = []; // 重置表格資料陣列
         }
 
-        // 新增 "全部選取" 按鈕的事件處理函式
         function selectAllStudents() {
             const checkboxes = document.querySelectorAll('input[name="studentList"]');
             checkboxes.forEach(checkbox => {
@@ -262,13 +261,13 @@
         }
 
         // 在 "學生名單" 區域添加 "全部選取" 按鈕
-        const selectAllButton = document.getElementById('btn_all');
-        /* selectAllButton.textContent = '全部選取';
-        selectAllButton.classList.add('btn', 'btn-primary'); */
+        const selectAllButton = document.createElement('button');
+        selectAllButton.textContent = '全部選取';
+        selectAllButton.classList.add('btn', 'btn-primary');
         selectAllButton.addEventListener('click', selectAllStudents);
 
-        /*  const studentListContainer = document.querySelector('.student-list');
-         studentListContainer.insertBefore(selectAllButton, studentListContainer.firstChild); */
+        const studentListContainer = document.querySelector('.student-list');
+        studentListContainer.insertBefore(selectAllButton, studentListContainer.firstChild);
     </script>
 </body>
 
