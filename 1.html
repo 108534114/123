@@ -127,25 +127,36 @@
             }
         }
         const getData = () => {
-            axios.get('學生名單.php')
-                .then((res) => {
-                    let arr = res.data;
-                    const studentList = document.querySelector('.student-list');
-                    studentList.innerHTML = ''; // 修正這行的錯誤
+    axios.get('學生名單.php')
+        .then((res) => {
+            let arr = res.data;
+            const studentList = document.querySelector('.student-list');
+            studentList.innerHTML = '';
 
-                    arr.forEach((student, index) => {
-                        const studentCheckbox = `<div>
-                            <label for="student${index + 1}">
-                                <input type="checkbox" name="studentList" id="student${index + 1}" value="${student.學號}">
-                                ${student.學號}, 姓名: ${student.姓名}
-                                
-                            </label>
-                        </div>`;
-                        studentList.innerHTML += studentCheckbox;
-                    });
-                })
-                .catch((error) => console.log(error));
-        };
+            arr.forEach((student, index) => {
+                const studentCheckbox = document.createElement('div');
+                studentCheckbox.innerHTML = `
+                    <label for="student${index + 1}">
+                        <input type="checkbox" name="studentList" id="student${index + 1}" value="${student.學號}">
+                        ${student.學號}, 姓名: ${student.姓名}
+                    </label>
+                `;
+
+                // 添加点击事件监听器来处理选中状态
+                const checkbox = studentCheckbox.querySelector(`#student${index + 1}`);
+                checkbox.addEventListener('click', (event) => {
+                    if (event.target.checked) {
+                        studentCheckbox.style.backgroundColor = 'lightblue';
+                    } else {
+                        studentCheckbox.style.backgroundColor = 'transparent';
+                    }
+                });
+
+                studentList.appendChild(studentCheckbox);
+            });
+        })
+        .catch((error) => console.log(error));
+};
 
         getData();
 
