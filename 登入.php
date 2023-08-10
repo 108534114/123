@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows == 1) {
         // 登入成功
         $_SESSION['username'] = $username;
-        header("Location: dashboard.php"); // 登入成功後重導向到儀表板頁面
+        header("Location:1.html"); // 登入成功後重導向到儀表板頁面
     } else {
         echo '<script>alert("登入失敗，請檢查帳號和密碼。");</script>';
     }
