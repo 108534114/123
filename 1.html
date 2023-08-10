@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>學生點名和評分整合系統</title>
@@ -46,13 +47,12 @@
                             學號2, 姓名: 學生2
                         </label>
                     </div>
-       
                 </div>
             </div>
             <div class="col-6">
                 <div class="table-generator">
 
-                    <label for="rows">行數</label>
+                    <label for="rows">行數：</label>
                     <input type="number" id="rows" min="1" max="10">
                     <label for="columns">列數：</label>
                     <input type="number" id="columns" min="1" max="10">
@@ -252,6 +252,7 @@
             tableData = []; // 重置表格資料陣列
         }
 
+        // 新增 "全部選取" 按鈕的事件處理函式
         function selectAllStudents() {
             const checkboxes = document.querySelectorAll('input[name="studentList"]');
             checkboxes.forEach(checkbox => {
@@ -260,14 +261,13 @@
         }
 
         // 在 "學生名單" 區域添加 "全部選取" 按鈕
-        const selectAllButton = document.createElement('button');
-        selectAllButton.textContent = '全部選取';
-        selectAllButton.classList.add('btn', 'btn-primary');
+        const selectAllButton = document.getElementById('btn_all');
+        /* selectAllButton.textContent = '全部選取';
+        selectAllButton.classList.add('btn', 'btn-primary'); */
         selectAllButton.addEventListener('click', selectAllStudents);
 
-        const studentListContainer = document.querySelector('.student-list');
-        studentListContainer.insertBefore(selectAllButton, studentListContainer.firstChild);
-        
+        /*  const studentListContainer = document.querySelector('.student-list');
+         studentListContainer.insertBefore(selectAllButton, studentListContainer.firstChild); */
     </script>
 </body>
 
