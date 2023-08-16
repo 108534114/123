@@ -49,20 +49,22 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+        <div class="col-6">
                 <div class="table-generator">
-                        <label for="rows">行數：</label>
-                        <input type="number" id="rows" min="1" max="10">
-                        <label for="columns">列數：</label>
-                        <input type="number" id="columns" min="1" max="10">
-                        <button class="btn btn-primary" onclick="generateTable()">生成表格</button>
-                        <button class="btn btn-danger" onclick="clearTable()">清空表格</button>
-                        <button class="btn btn-primary" id="btn_all">全部選取</button>
-                        <button class="btn btn-success" id="save-button">儲存</button>
-                        <button class="btn btn-secondary" id="add-row-button" onclick="addRow()">增加行</button>
-                        <button class="btn btn-secondary" id="add-column-button" onclick="addColumn()">增加列</button>
-                        <button class="btn btn-secondary" id="remove-row-button" onclick="removeRow()">減少行</button>
-                        <button class="btn btn-secondary" id="remove-column-button" onclick="removeColumn()">減少列</button> 
+                    <label for="rows">行數：</label>
+                    <input type="number" id="rows" min="1" max="10">
+                    <label for="columns">列數：</label>
+                    <input type="number" id="columns" min="1" max="10">
+                    <button class="btn btn-primary" onclick="generateTable()">生成表格</button>
+                    <button class="btn btn-danger" onclick="clearTable()">清空表格</button>
+                    <button class="btn btn-primary" id="selectAllButton">全部選取</button>
+                    <button class="btn btn-success" id="saveButton">儲存</button>
+                    <button class="btn btn-secondary" id="addRowButton" onclick="addRow()">增加行</button>
+                    <button class="btn btn-secondary" id="addColumnButton" onclick="addColumn()">增加列</button>
+                    <button class="btn btn-secondary" id="removeRowButton" onclick="removeRow()">減少行</button>
+                    <button class="btn btn-secondary" id="removeColumnButton" onclick="removeColumn()">減少列</button>
+                    <div id="randomButton"></div>
+                        
                         <div id="randomButton"></div>
                 </div>
             </div>
@@ -261,6 +263,33 @@
                 checkbox.checked = true;
             });
         }
+        let selectedCell = null; // 用於存儲當前選擇的單元格
+
+function selectCell(cell) {
+    if (selectedCell === null) {
+        selectedCell = cell;
+        cell.style.backgroundColor = 'lightblue';
+    } else {
+        const tempText = cell.textContent;
+        cell.textContent = selectedCell.textContent;
+        selectedCell.textContent = tempText;
+
+        const selectedRowIndex = selectedCell.parentNode.rowIndex;
+        const selectedCellIndex = selectedCell.cellIndex;
+        const rowIndex = cell.parentNode.rowIndex;
+        const cellIndex = cell.cellIndex;
+
+        // 更新 tableData 陣列中的資料
+        const temp = tableData[selectedRowIndex][selectedCellIndex];
+        tableData[selectedRowIndex][selectedCellIndex] = tableData[rowIndex][cellIndex];
+        tableData[rowIndex][cellIndex] = temp;
+
+        // 清除選擇並重置背景顏色
+        selectedCell.style.backgroundColor = 'transparent';
+        selectedCell = null;
+    }
+}
+
 
         // 在 "學生名單" 區域添加 "全部選取" 按鈕
         const selectAllButton = document.getElementById('btn_all');
@@ -338,6 +367,7 @@ function removeColumn() {
         }
     }
 }
+
 
     </script>
 </body>
