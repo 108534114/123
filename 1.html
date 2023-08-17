@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-        <style>
+        <style>    
             .table-container {
                 position: absolute;
                 top: 0;
                 left: 0;
                 min-height: auto;
-                overflow-y: auto;
+                overflow-y: auto;   
             }
         </style>
         
@@ -25,7 +25,7 @@
 
     <div class="col-6" style="float: left;">
         <div class="table-container">
-            <table class="table table-bordered" id="table"></table>
+            <table class="table-bordered"  style="background-color: rgb(139, 218, 176);" id="table"></table>
         </div>
     </div>
     
@@ -63,6 +63,7 @@
                         <button class="btn btn-secondary" id="add-column-button" onclick="addColumn()">增加列</button>
                         <button class="btn btn-secondary" id="remove-row-button" onclick="removeRow()">減少行</button>
                         <button class="btn btn-secondary" id="remove-column-button" onclick="removeColumn()">減少列</button> 
+                        
                         <div id="randomButton"></div>
                 </div>
             </div>
@@ -163,30 +164,31 @@
         getData();
 
         function generateTable() {
-            const table = document.getElementById('table');
-            const rows = document.getElementById('rows').value;
-            const columns = document.getElementById('columns').value;
+    const table = document.getElementById('table');
+    const rows = document.getElementById('rows').value;
+    const columns = document.getElementById('columns').value;
 
-            // 清空原有的表格
-            table.innerHTML = '';
-            tableData = []; // 重置表格資料陣列
+    // 清空原有的表格
+    table.innerHTML = '';
+    tableData = []; // 重置表格資料陣列
 
-            const selectedStudents = Array.from(document.querySelectorAll('input[name="studentList"]:checked'))
-                .map(checkbox => checkbox.value);
+    const selectedStudents = Array.from(document.querySelectorAll('input[name="studentList"]:checked'))
+        .map(checkbox => checkbox.value);
 
-            if (selectedStudents.length === 0) {
-                console.log("請選擇至少一位學生。");
-                return;
-            }
+    if (selectedStudents.length === 0) {
+        console.log("請選擇至少一位學生。");
+        return;
+    }
 
-            let studentIndex = 0; // Keep track of the selected student index
+    let studentIndex = 0; // Keep track of the selected student index
 
-            for (let i = 0; i < rows; i++) {
-                const row = table.insertRow(i);
-                const rowData = []; // 儲存每一列的資料
+    for (let i = 0; i < rows; i++) {
+        const row = table.insertRow(i);
+        const rowData = []; // 儲存每一列的資料
 
-                for (let j = 0; j < columns; j++) {
-                    const cell = row.insertCell(j);
+        for (let j = 0; j < columns; j++) {
+            const cell = row.insertCell(j);
+            
 
                     // 檢查格子內是否已經有按鈕
                     if (!cell.querySelector('button')) {
@@ -338,6 +340,7 @@ function removeColumn() {
         }
     }
 }
+
 
     </script>
 </body>
