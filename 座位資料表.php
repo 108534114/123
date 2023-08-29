@@ -1,6 +1,6 @@
 <?php
 // 連接到資料庫
-$host = 'localhost';
+$host = '127.0.0.1';
 $user = 'seat';
 $password = 'seat995SEAT';
 $database = 'seat';

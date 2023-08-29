@@ -7,28 +7,28 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-        <style>    
-            .table-container {
-                position: absolute;
-                top: 0;
-                left: 0;
-                min-height: auto;
-                overflow-y: auto;   
-            }
-        </style>
-        
+    <style>
+        .table-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            min-height: auto;
+            overflow-y: auto;
+        }
+    </style>
+
 </head>
 
 <body>
-    
+
     <script src="your-script.js"></script>
 
     <div class="col-6" style="float: left;">
         <div class="table-container">
-            <table class="table-bordered"  style="background-color: rgb(139, 218, 176);" id="table"></table>
+            <table class="table-bordered" style="background-color: rgb(139, 218, 176);" id="table"></table>
         </div>
     </div>
-    
+
 
     <div class="container">
         <div class="row">
@@ -51,20 +51,20 @@
             </div>
             <div class="col-6">
                 <div class="table-generator">
-                        <label for="rows">行數：</label>
-                        <input type="number" id="rows" min="1" max="10">
-                        <label for="columns">列數：</label>
-                        <input type="number" id="columns" min="1" max="10">
-                        <button class="btn btn-primary" onclick="generateTable()">生成表格</button>
-                        <button class="btn btn-danger" onclick="clearTable()">清空表格</button>
-                        <button class="btn btn-primary" id="btn_all">全部選取</button>
-                        <button class="btn btn-success" id="save-button">儲存</button>
-                        <button class="btn btn-secondary" id="add-row-button" onclick="addRow()">增加行</button>
-                        <button class="btn btn-secondary" id="add-column-button" onclick="addColumn()">增加列</button>
-                        <button class="btn btn-secondary" id="remove-row-button" onclick="removeRow()">減少行</button>
-                        <button class="btn btn-secondary" id="remove-column-button" onclick="removeColumn()">減少列</button> 
-                        
-                        <div id="randomButton"></div>
+                    <label for="rows">行數：</label>
+                    <input type="number" id="rows" min="1" max="10">
+                    <label for="columns">列數：</label>
+                    <input type="number" id="columns" min="1" max="10">
+                    <button class="btn btn-primary" onclick="generateTable()">生成表格</button>
+                    <button class="btn btn-danger" onclick="clearTable()">清空表格</button>
+                    <button class="btn btn-primary" id="btn_all">全部選取</button>
+                    <button class="btn btn-success" id="save-button">儲存</button>
+                    <button class="btn btn-secondary" id="add-row-button" onclick="addRow()">增加行</button>
+                    <button class="btn btn-secondary" id="add-column-button" onclick="addColumn()">增加列</button>
+                    <button class="btn btn-secondary" id="remove-row-button" onclick="removeRow()">減少行</button>
+                    <button class="btn btn-secondary" id="remove-column-button" onclick="removeColumn()">減少列</button>
+
+                    <div id="randomButton"></div>
                 </div>
             </div>
         </div>
@@ -119,7 +119,7 @@
                     const selectedStudent = selectedStudents[randomIndex];
 
                     cell.textContent = `學號: ${selectedStudent}`;
-                    
+
                     // 儲存表格資料到陣列
                     rowData.push(selectedStudent);
                     createDeleteButton(cell, rowData, randomFillButton); // 在每個新增的 cell 中創建刪除按鈕
@@ -130,65 +130,68 @@
             }
         }
         const getData = () => {
-    axios.get('學生名單.php')
-        .then((res) => {
-            let arr = res.data;
-            const studentList = document.querySelector('.student-list');
-            studentList.innerHTML = '';
+            axios.get('學生名單.php')
+                .then((res) => {
+                    console.log(res.data);
+                    let arr = res.data;
+                    const studentList = document.querySelector('.student-list');
+                    studentList.innerHTML = '';
 
-            arr.forEach((student, index) => {
-                const studentCheckbox = document.createElement('div');
-                studentCheckbox.innerHTML = `
+                    arr.forEach((student, index) => {
+                        const studentCheckbox = document.createElement('div');
+                        studentCheckbox.innerHTML = `
                     <label for="student${index + 1}">
                         <input type="checkbox" name="studentList" id="student${index + 1}" value="${student.學號}">
-                        ${student.學號}, 姓名: ${student.姓名}
+                       學號: ${student.學號}, 姓名: ${student.姓名}
                     </label>
                 `;
 
-                // 添加点击事件监听器来处理选中状态
-                const checkbox = studentCheckbox.querySelector(`#student${index + 1}`);
-                checkbox.addEventListener('click', (event) => {
-                    if (event.target.checked) {
-                        studentCheckbox.style.backgroundColor = 'lightblue';
-                    } else {
-                        studentCheckbox.style.backgroundColor = 'transparent';
-                    }
-                });
+                        // 添加点击事件监听器来处理选中状态
+                        const checkbox = studentCheckbox.querySelector(`#student${index + 1}`);
+                        checkbox.addEventListener('click', (event) => {
+                            if (event.target.checked) {
+                                studentCheckbox.style.backgroundColor = 'lightblue';
+                            } else {
+                                studentCheckbox.style.backgroundColor = 'transparent';
+                            }
+                        });
 
-                studentList.appendChild(studentCheckbox);
-            });
-        })
-        .catch((error) => console.log(error));
-};
+                        studentList.appendChild(studentCheckbox);
+                    });
+                })
+                .catch((error) => console.log(error));
+
+
+        };
 
         getData();
 
         function generateTable() {
-    const table = document.getElementById('table');
-    const rows = document.getElementById('rows').value;
-    const columns = document.getElementById('columns').value;
+            const table = document.getElementById('table');
+            const rows = document.getElementById('rows').value;
+            const columns = document.getElementById('columns').value;
 
-    // 清空原有的表格
-    table.innerHTML = '';
-    tableData = []; // 重置表格資料陣列
+            // 清空原有的表格
+            table.innerHTML = '';
+            tableData = []; // 重置表格資料陣列
 
-    const selectedStudents = Array.from(document.querySelectorAll('input[name="studentList"]:checked'))
-        .map(checkbox => checkbox.value);
+            const selectedStudents = Array.from(document.querySelectorAll('input[name="studentList"]:checked'))
+                .map(checkbox => checkbox.value);
 
-    if (selectedStudents.length === 0) {
-        console.log("請選擇至少一位學生。");
-        return;
-    }
+            if (selectedStudents.length === 0) {
+                console.log("請選擇至少一位學生。");
+                return;
+            }
 
-    let studentIndex = 0; // Keep track of the selected student index
+            let studentIndex = 0; // Keep track of the selected student index
 
-    for (let i = 0; i < rows; i++) {
-        const row = table.insertRow(i);
-        const rowData = []; // 儲存每一列的資料
+            for (let i = 0; i < rows; i++) {
+                const row = table.insertRow(i);
+                const rowData = []; // 儲存每一列的資料
 
-        for (let j = 0; j < columns; j++) {
-            const cell = row.insertCell(j);
-            
+                for (let j = 0; j < columns; j++) {
+                    const cell = row.insertCell(j);
+
 
                     // 檢查格子內是否已經有按鈕
                     if (!cell.querySelector('button')) {
@@ -203,7 +206,7 @@
                                 const selectedStudent = selectedStudents[studentIndex++];
                                 console.log(selectedStudent)
                                 cell.textContent = `學號: ${selectedStudent}`;
-                                
+
                                 // 儲存表格資料到陣列
                                 rowData.push(selectedStudent);
                                 createDeleteButton(cell, rowData, button); // 在每個新增的 cell 中創建刪除按鈕
@@ -216,6 +219,7 @@
                 tableData.push(rowData);
             }
         }
+
         function saveTable() {
             // 將表格資料作為JavaScript物件傳送到座位資料表.php
             axios.post('座位資料表.php', { tableData: tableData })
@@ -230,54 +234,9 @@
 
         let selectedCell = null; // 用于存储当前选中的单元格
 
-function createExchangeButton(cell, rowData) {
-    const exchangeButton = document.createElement('button');
-    exchangeButton.textContent = '交換';
-    exchangeButton.classList.add('btn', 'btn-warning', 'btn-sm', 'ms-2');
-    cell.appendChild(exchangeButton);
 
-    exchangeButton.addEventListener('click', function () {
-        if (selectedCell === null) {
-            selectedCell = cell; // 如果当前没有选中的单元格，将当前单元格设置为选中
-            cell.style.backgroundColor = 'lightblue'; // 用颜色标记选中的单元格
-        } else {
-            // 如果当前已经选中了一个单元格，执行交换操作
-            const rowIndex1 = selectedCell.parentNode.rowIndex;
-            const columnIndex1 = selectedCell.cellIndex;
 
-            const rowIndex2 = cell.parentNode.rowIndex;
-            const columnIndex2 = cell.cellIndex;
 
-            const tempData = tableData[rowIndex1][columnIndex1];
-            tableData[rowIndex1][columnIndex1] = tableData[rowIndex2][columnIndex2];
-            tableData[rowIndex2][columnIndex2] = tempData;
-
-            selectedCell.textContent = `學號: ${tableData[rowIndex1][columnIndex1]}`;
-            cell.textContent = `學號: ${tableData[rowIndex2][columnIndex2]}`;
-
-            selectedCell.style.backgroundColor = 'transparent'; // 清除选中单元格的颜色标记
-            selectedCell = null; // 重置选中单元格
-        }
-    });
-}
-
-function generateTable() {
-    // ...其他代码...
-
-    for (let i = 0; i < rows; i++) {
-        const row = table.insertRow(i);
-        const rowData = [];
-
-        for (let j = 0; j < columns; j++) {
-            const cell = row.insertCell(j);
-            // ...其他代码...
-
-            createExchangeButton(cell, rowData); // 创建交换按钮
-        }
-
-        tableData.push(rowData);
-    }
-}
 
 
         function clearTable() {
@@ -296,80 +255,77 @@ function generateTable() {
 
         // 在 "學生名單" 區域添加 "全部選取" 按鈕
         const selectAllButton = document.getElementById('btn_all');
-        /* selectAllButton.textContent = '全部選取';
-        selectAllButton.classList.add('btn', 'btn-primary'); */
+
         selectAllButton.addEventListener('click', selectAllStudents);
 
-        /*  const studentListContainer = document.querySelector('.student-list');
-     
-        studentListContainer.insertBefore(selectAllButton, studentListContainer.firstChild); */
+
+
         function addRow() {
-    const table = document.getElementById('table');
-    const newRow = table.insertRow(-1);
+            const table = document.getElementById('table');
+            const newRow = table.insertRow(-1);
 
-    const columns = document.getElementById('columns').value;
-    const selectedStudents = Array.from(document.querySelectorAll('input[name="studentList"]:checked'))
-        .map(checkbox => checkbox.value);
+            const columns = document.getElementById('columns').value;
+            const selectedStudents = Array.from(document.querySelectorAll('input[name="studentList"]:checked'))
+                .map(checkbox => checkbox.value);
 
-    const rowData = [];
+            const rowData = [];
 
-    for (let j = 0; j < columns; j++) {
-        const cell = newRow.insertCell(j);
-        const randomIndex = Math.floor(Math.random() * selectedStudents.length);
-        const selectedStudent = selectedStudents[randomIndex];
+            for (let j = 0; j < columns; j++) {
+                const cell = newRow.insertCell(j);
+                const randomIndex = Math.floor(Math.random() * selectedStudents.length);
+                const selectedStudent = selectedStudents[randomIndex];
 
-        cell.textContent = `學號: ${selectedStudent}`;
+                cell.textContent = `學號: ${selectedStudent}`;
 
-        rowData.push(selectedStudent);
-        createDeleteButton(cell, rowData, randomFillButton);
-    }
+                rowData.push(selectedStudent);
 
-    tableData.push(rowData);
-}
+            }
 
-function addColumn() {
-    const table = document.getElementById('table');
-    const rows = table.rows;
-
-    const selectedStudents = Array.from(document.querySelectorAll('input[name="studentList"]:checked'))
-        .map(checkbox => checkbox.value);
-
-    for (let i = 0; i < rows.length; i++) {
-        const row = rows[i];
-        const cell = row.insertCell(-1);
-        const randomIndex = Math.floor(Math.random() * selectedStudents.length);
-        const selectedStudent = selectedStudents[randomIndex];
-
-        cell.textContent = `學號: ${selectedStudent}`;
-
-        const rowData = tableData[i];
-        rowData.push(selectedStudent);
-        createDeleteButton(cell, rowData, randomFillButton);
-    }
-}
-
-function removeRow() {
-    const table = document.getElementById('table');
-    if (table.rows.length > 0) {
-        table.deleteRow(-1);
-        tableData.pop();
-    }
-}
-
-function removeColumn() {
-    const table = document.getElementById('table');
-    const rows = table.rows;
-
-    if (rows.length > 0) {
-        for (let i = 0; i < rows.length; i++) {
-            const row = rows[i];
-            row.deleteCell(-1);
-
-            const rowData = tableData[i];
-            rowData.pop();
+            tableData.push(rowData);
         }
-    }
-}
+
+        function addColumn() {
+            const table = document.getElementById('table');
+            const rows = table.rows;
+
+            const selectedStudents = Array.from(document.querySelectorAll('input[name="studentList"]:checked'))
+                .map(checkbox => checkbox.value);
+
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                const cell = row.insertCell(-1);
+                const randomIndex = Math.floor(Math.random() * selectedStudents.length);
+                const selectedStudent = selectedStudents[randomIndex];
+
+                cell.textContent = `學號: ${selectedStudent}`;
+
+                const rowData = tableData[i];
+                rowData.push(selectedStudent);
+                createDeleteButton(cell, rowData, randomFillButton);
+            }
+        }
+        function removeRow() {
+            const table = document.getElementById('table');
+            if (table.rows.length > 0) {
+                table.deleteRow(-1);
+                tableData.pop();
+            }
+        }
+
+        function removeColumn() {
+            const table = document.getElementById('table');
+            const rows = table.rows;
+
+            if (rows.length > 0) {
+                for (let i = 0; i < rows.length; i++) {
+                    const row = rows[i];
+                    row.deleteCell(-1);
+
+                    const rowData = tableData[i];
+                    rowData.pop();
+                }
+            }
+        }
 
 
     </script>
