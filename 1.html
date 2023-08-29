@@ -228,27 +228,57 @@
                 });
         }
 
-        function createDeleteButton(cell, rowData, button) {
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = '刪除';
-            deleteButton.classList.add('btn', 'btn-danger', 'btn-sm', 'ms-2');
-            cell.appendChild(deleteButton);
+        let selectedCell = null; // 用于存储当前选中的单元格
 
-            deleteButton.addEventListener('click', function () {
-                const rowIndex = cell.parentNode.rowIndex;
-                const columnIndex = cell.cellIndex;
-                cell.textContent = '';
+function createExchangeButton(cell, rowData) {
+    const exchangeButton = document.createElement('button');
+    exchangeButton.textContent = '交換';
+    exchangeButton.classList.add('btn', 'btn-warning', 'btn-sm', 'ms-2');
+    cell.appendChild(exchangeButton);
 
-                cell.appendChild(button);
+    exchangeButton.addEventListener('click', function () {
+        if (selectedCell === null) {
+            selectedCell = cell; // 如果当前没有选中的单元格，将当前单元格设置为选中
+            cell.style.backgroundColor = 'lightblue'; // 用颜色标记选中的单元格
+        } else {
+            // 如果当前已经选中了一个单元格，执行交换操作
+            const rowIndex1 = selectedCell.parentNode.rowIndex;
+            const columnIndex1 = selectedCell.cellIndex;
 
+            const rowIndex2 = cell.parentNode.rowIndex;
+            const columnIndex2 = cell.cellIndex;
 
-                // 從 rowData 陣列中移除被刪除的學生
-                rowData.splice(columnIndex, 1);
+            const tempData = tableData[rowIndex1][columnIndex1];
+            tableData[rowIndex1][columnIndex1] = tableData[rowIndex2][columnIndex2];
+            tableData[rowIndex2][columnIndex2] = tempData;
 
-                // 更新 tableData 陣列中對應列的資料
-                tableData[rowIndex] = rowData;
-            });
+            selectedCell.textContent = `學號: ${tableData[rowIndex1][columnIndex1]}`;
+            cell.textContent = `學號: ${tableData[rowIndex2][columnIndex2]}`;
+
+            selectedCell.style.backgroundColor = 'transparent'; // 清除选中单元格的颜色标记
+            selectedCell = null; // 重置选中单元格
         }
+    });
+}
+
+function generateTable() {
+    // ...其他代码...
+
+    for (let i = 0; i < rows; i++) {
+        const row = table.insertRow(i);
+        const rowData = [];
+
+        for (let j = 0; j < columns; j++) {
+            const cell = row.insertCell(j);
+            // ...其他代码...
+
+            createExchangeButton(cell, rowData); // 创建交换按钮
+        }
+
+        tableData.push(rowData);
+    }
+}
+
 
         function clearTable() {
             const table = document.getElementById('table');
