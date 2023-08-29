@@ -141,8 +141,8 @@
                         const studentCheckbox = document.createElement('div');
                         studentCheckbox.innerHTML = `
                     <label for="student${index + 1}">
-                        <input type="checkbox" name="studentList" id="student${index + 1}" value="${student.學號}">
-                       學號: ${student.學號}, 姓名: ${student.姓名}
+                        <input type="checkbox" name="studentList" id="student${index + 1}" value="${student.學號+student.姓名}">
+                       學號: ${student.學號}, 姓名: ${student.姓名},
                     </label>
                 `;
 
@@ -177,6 +177,7 @@
 
             const selectedStudents = Array.from(document.querySelectorAll('input[name="studentList"]:checked'))
                 .map(checkbox => checkbox.value);
+                console.log(selectedStudents);
 
             if (selectedStudents.length === 0) {
                 console.log("請選擇至少一位學生。");
@@ -205,11 +206,11 @@
                                 // Take the selected student and fill the cell with their information
                                 const selectedStudent = selectedStudents[studentIndex++];
                                 console.log(selectedStudent)
-                                cell.textContent = `學號: ${selectedStudent}`;
+                                cell.textContent = `學生: ${selectedStudent}`;
 
                                 // 儲存表格資料到陣列
                                 rowData.push(selectedStudent);
-                                createDeleteButton(cell, rowData, button); // 在每個新增的 cell 中創建刪除按鈕
+                                //createDeleteButton(cell, rowData, button); // 在每個新增的 cell 中創建刪除按鈕
                             }
                         });
                     }
