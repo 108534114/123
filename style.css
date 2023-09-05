@@ -37,3 +37,20 @@ body {
 .row {
   margin-top: 20px;
 }
+.rear-entrance {
+  background-color: lightblue;
+}
+
+.front-entrance {
+  background-color: lightgreen;
+}
+/*前門 */
+.front-entrance {
+  text-align: right; /* 將前門文字靠右對齊 */
+  padding-right: 10px; /* 添加一些右邊間距，使其更好看 */
+}
+/*後門 */
+.rear-entrance {
+  text-align: right; /* 將後門文字靠右對齊 */
+    padding-right: 10px; /* 添加一些右邊間距，使其更好看 */
+}

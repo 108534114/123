@@ -7,28 +7,32 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-        <style>    
-            .table-container {
-                position: absolute;
-                top: 0;
-                left: 0;
-                min-height: auto;
-                overflow-y: auto;   
-            }
-        </style>
-        
+    <style>
+        .table-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            min-height: auto;
+            overflow-y: auto;
+        }
+
+        /* 新增的 CSS 样式 */
+        #table td:first-child {
+            position: sticky;
+            top: 0;
+            background-color: lightgray;
+            z-index: 2;
+        }
+    </style>
 </head>
 
 <body>
-    
+
     <script src="your-script.js"></script>
 
     <div class="col-6" style="float: left;">
         <div class="table-container">
-            <table class="table-bordered"  style="background-color: rgb(139, 218, 176);" id="table"></table>
-        </div>
-    </div>
-    
+            <table class="table-bordered" style="background-color: rgb(139, 218, 176);" id="table">
 
     <div class="container">
         <div class="row">
@@ -109,26 +113,42 @@
             const rows = document.getElementById('rows').value;
             const columns = document.getElementById('columns').value;
 
-            for (let i = 0; i < rows; i++) {
+            for (let i = 0; i < rows + 1; i++) {
                 const row = table.insertRow(i);
                 const rowData = []; // 儲存每一列的資料
-
+            
                 for (let j = 0; j < columns; j++) {
                     const cell = row.insertCell(j);
-                    const randomIndex = Math.floor(Math.random() * selectedStudents.length);
-                    const selectedStudent = selectedStudents[randomIndex];
-
-                    cell.textContent = `學號: ${selectedStudent}`;
-                    
-                    // 儲存表格資料到陣列
-                    rowData.push(selectedStudent);
-                    createDeleteButton(cell, rowData, randomFillButton); // 在每個新增的 cell 中創建刪除按鈕
+            
+                    // Check if it's the podium row
+                    if (i === 0) {
+                        cell.textContent = '講台';
+                        cell.style.backgroundColor = 'lightgray';
+                    } else {
+                        const randomIndex = Math.floor(Math.random() * selectedStudents.length);
+                        const selectedStudent = selectedStudents[randomIndex];
+            
+                        cell.textContent = `學號: ${selectedStudent}`;
+            
+                        // 儲存表格資料到陣列
+                        rowData.push(selectedStudent);
+                        createDeleteButton(cell, rowData, randomFillButton); // 在每個新增的 cell 中創建刪除按鈕
+                    }
+            
+                    // Mark front and rear entrances
+                    if (j === 0) {
+                        cell.classList.add('rear-entrance'); // Add a class for styling
+                    }
+                    if (j === columns - 1) {
+                        cell.classList.add('front-entrance'); // Add a class for styling
+                    }
                 }
-
+            
                 // 將每一列的資料加入到表格資料陣列
                 tableData.push(rowData);
             }
         }
+
         const getData = () => {
     axios.get('學生名單.php')
         .then((res) => {
@@ -215,7 +235,43 @@
                 // 將每一列的資料加入到表格資料陣列
                 tableData.push(rowData);
             }
-        }
+            
+            const podiumRow = table.insertRow(0);
+            const podiumCell = podiumRow.insertCell(0);
+            podiumCell.textContent = '講台';
+            podiumCell.style.backgroundColor = 'lightgray';
+            
+            // 在講台所在行新增前門
+            const frontEntranceCell = podiumRow.insertCell(-1);
+            frontEntranceCell.textContent = '前門';
+            frontEntranceCell.classList.add('front-entrance');
+            frontEntranceCell.style.textAlign = 'right';
+            
+            // 新增空白儲存格以保持前門在講台所在行的最右邊
+            for (let j = 1; j < columns; j++) {
+                podiumRow.insertCell(-1);
+            }
+            
+            for (let i = 0; i < rows; i++) {
+                const row = table.insertRow(i + 1);
+                const rowData = [];
+            
+                for (let j = 0; j < columns; j++) {
+                    // ...（現有程式碼）
+                }
+            }
+            
+            // 在最後新增後門行
+            const backEntranceRow = table.insertRow(-1);
+            const backEntranceCell = backEntranceRow.insertCell(0);
+            backEntranceCell.textContent = '後門';
+            backEntranceCell.classList.add('rear-entrance');
+            
+            for (let i = 0; i < columns; i++) {
+                const cell = backEntranceRow.insertCell(i + 1);
+                // ...（現有程式碼）
+            }
+            
         function saveTable() {
             // 將表格資料作為JavaScript物件傳送到座位資料表.php
             axios.post('座位資料表.php', { tableData: tableData })
@@ -227,7 +283,7 @@
                     console.error("發生錯誤:", error);
                 });
         }
-
+    }
         function createDeleteButton(cell, rowData, button) {
             const deleteButton = document.createElement('button');
             deleteButton.textContent = '刪除';
