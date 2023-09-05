@@ -1,9 +1,9 @@
 <?php
 // 連接資料庫
 $host = 'localhost';
-$user = 'seat';
-$password = 'seat995SEAT';
-$database = 'seat';
+$user = 'root';
+$password = '';
+$database = 'emo';
 
 // 创建数据库连接
 $conn = new mysqli($host, $user, $password, $database);
@@ -20,17 +20,20 @@ $result = $conn->query($sql);
 // 顯示學生名單
 $students = array();
 if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $students[] = $row;
+    while($row=mysqli_fetch_assoc($result)){
+/*      echo "$row[學號]<br/>"; */
+        $students[]=$row;
+     
     }
 }
+
+
 
 // 釋放結果集
 $result->free();
 
 // 關閉資料庫連接
 $conn->close();
-
 // 转换为 JSON 格式
 $jsonData = json_encode($students);
 
@@ -39,4 +42,3 @@ header('Content-Type: application/json');
 
 // 返回JSON格式的學生資料
 echo $jsonData;
-?>
