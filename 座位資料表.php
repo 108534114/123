@@ -1,9 +1,9 @@
 <?php
 // 連接到資料庫
-$host = 'localhost';
-$user = 'root';
-$password = '';
-$database = 'emo';
+$host = '127.0.0.1';//127.0.0.1
+$user = 'seat';//seat
+$password = 'seat995SEAT';//seat995SEAT
+$database = 'seat';//seat
 
 // 建立数据库连接
 $conn = new mysqli($host, $user, $password, $database);
