@@ -142,7 +142,7 @@
                         studentCheckbox.innerHTML = `
                     <label for="student${index + 1}">
                         <input type="checkbox" name="studentList" id="student${index + 1}" value="${student.學號+student.姓名}">
-                       學號: ${student.學號}, 姓名: ${student.姓名},
+                       學號: ${student.學號} 姓名: ${student.姓名}
                     </label>
                 `;
 
@@ -261,29 +261,32 @@
 
 
 
-        function addRow() {
-            const table = document.getElementById('table');
-            const newRow = table.insertRow(-1);
+        function addRow() {//增加排
+    const table = document.getElementById('table');
+    const newRow = table.insertRow(-1);
 
-            const columns = document.getElementById('columns').value;
-            const selectedStudents = Array.from(document.querySelectorAll('input[name="studentList"]:checked'))
-                .map(checkbox => checkbox.value);
+    const columns = document.getElementById('columns').value;
 
-            const rowData = [];
+    for (let j = 0; j < columns; j++) {
+        const cell = newRow.insertCell(j);
+        const addButton = document.createElement('button'); // Create a new button element
+        addButton.textContent = '加入'; // Set the button text
+        addButton.classList.add('btn', 'btn-primary'); // Add Bootstrap classes to the button
 
-            for (let j = 0; j < columns; j++) {
-                const cell = newRow.insertCell(j);
-                const randomIndex = Math.floor(Math.random() * selectedStudents.length);
-                const selectedStudent = selectedStudents[randomIndex];
+        // Add a click event listener to the button
+        addButton.addEventListener('click', function () {
+            // Get the selected students when the button is clicked
+            const selectedStudents = Array.from(document.querySelectorAll('input[name="studentList"]:checked'));
+            // Code to handle adding data when the button is clicked
+            const rowData = selectedStudents.map(checkbox => `學號: ${checkbox.value}`);
+            cell.textContent = rowData.join(', '); // Display selected student IDs in the cell
+        });
 
-                cell.textContent = `學號: ${selectedStudent}`;
+        cell.appendChild(addButton); // Add the button to the cell
+    }
+}
 
-                rowData.push(selectedStudent);
 
-            }
-
-            tableData.push(rowData);
-        }
 
         function addColumn() {
             const table = document.getElementById('table');
@@ -305,7 +308,7 @@
                 createDeleteButton(cell, rowData, randomFillButton);
             }
         }
-        function removeRow() {
+        function removeRow() {//減少列
             const table = document.getElementById('table');
             if (table.rows.length > 0) {
                 table.deleteRow(-1);
@@ -313,7 +316,7 @@
             }
         }
 
-        function removeColumn() {
+        function removeColumn() {//減少排
             const table = document.getElementById('table');
             const rows = table.rows;
 
