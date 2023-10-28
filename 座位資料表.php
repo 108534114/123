@@ -1,78 +1,64 @@
 <?php
-// 連接到資料庫
-$host = '127.0.0.1';//127.0.0.1
-$user = 'seat';//seat
-$password = 'seat995SEAT';//seat995SEAT
-$database = 'seat';//seat
+// 啟動錯誤報告
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-// 建立数据库连接
+// 設定字符集為UTF-8
+header('Content-Type: application/json; charset=utf-8');
+
+// 數據庫配置
+$host = '127.0.0.1';
+$user = 'seat';
+$password = 'seat995SEAT';
+$database = 'seat';
+
+// 創建連接
 $conn = new mysqli($host, $user, $password, $database);
 
-// 確認是否連接成功
+// 檢查連接
 if ($conn->connect_error) {
-    die("連接資料庫失敗: " . $conn->connect_error);
+    echo json_encode(["error" => "連接失敗：" . $conn->connect_error]);
+    exit();
+} 
+
+// 驗證輸入
+$inputData = json_decode(file_get_contents("php://input"), true);
+if (!isset($inputData['tableData']) || empty($inputData['tableData'])) {
+    die("沒有收到任何數據");
+}
+$tableData = $inputData['tableData'];
+
+$sql = "INSERT INTO 教室座位表 (學號, 姓名, 第幾排, 第幾個) VALUES (?, ?, ?, ?)";
+$stmt = $conn->prepare($sql);
+
+if (!$stmt) {
+    die("準備語句時出錯：" . $conn->error);
 }
 
-// 檢查請求方法是否為 POST
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // 取得 POST 請求中的表格資料
-    $jsonData = $_POST['tableData'];
+foreach ($tableData as $rowData) {
+    foreach ($rowData as $cellData) {
+        if (isset($cellData['student'])) {
+            $學號 = $cellData['student']['學號'];
+            $姓名 = $cellData['student']['姓名'];
+            $stmt->bind_param("ssii", $學號, $姓名, $cellData['第幾排'], $cellData['第幾個']);
 
-    // 解析 JSON 資料
-    $tableData = json_decode($jsonData, true);
-
-    // 建立資料表格，如果尚未建立的話（假設你的資料表格名稱為 "seat_data"）
-    $sql = "CREATE TABLE IF NOT EXISTS seat_data (
-        id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        student_id VARCHAR(30) NOT NULL,
-        student_name VARCHAR(50) NOT NULL,
-        classroom_row INT(6) NOT NULL,
-        classroom_column INT(6) NOT NULL
-    )";
-
-    if ($conn->query($sql) === false) {
-        echo "建立資料表格失敗: " . $conn->error;
-        $conn->close();
-        return;
-    } else {
-        echo "建立資料表格成功。";
-    }
-
-    // 先清空原有的資料
-    $sql = "TRUNCATE TABLE seat_data";
-
-    if ($conn->query($sql) === false) {
-        echo "清空資料表格失敗: " . $conn->error;
-        $conn->close();
-        return;
-    } else {
-        echo "清空資料表格成功。";
-    }
-
-    // 插入新的資料
-    foreach ($tableData as $rowData) {
-        $studentId = $rowData['student_id'];
-        $studentName = $rowData['student_name'];
-        $classroomRow = $rowData['classroom_row'];
-        $classroomColumn = $rowData['classroom_column'];
-
-        $sql = "INSERT INTO seat_data (student_id, student_name, classroom_row, classroom_column) 
-                VALUES ('$studentId', '$studentName', '$classroomRow', '$classroomColumn')";
-
-        if ($conn->query($sql) === false) {
-            echo "插入資料失敗: " . $conn->error;
-            $conn->close();
-            return;
-        } else {
-            echo "插入資料成功。";
+            if (!$stmt->execute()) {
+                die("保存學號 " . $學號 . " 的表格數據時出錯：" . $stmt->error);
+            }
         }
     }
-
-    echo "表格資料已成功儲存到資料庫。";
-    $conn->close();
-    return;
 }
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+echo "所有數據已保存";
+
+$stmt->close();
+$conn->close();
 ?>
+
+
+
+
+
+
+

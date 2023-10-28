@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>抓取資料庫數據</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>資料庫數據</h1>
+    <ul id="dataList">
+    </ul>
+    
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: "get.php",
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    var dataList = $("#dataList");
+                    data.forEach(function(item) {
+                        dataList.append("<li>" + item.column_name + "</li>"); // 將資料顯示在列表中
+                    });
+                },
+                error: function() {
+                    alert("無法抓取資料");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

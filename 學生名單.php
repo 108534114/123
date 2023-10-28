@@ -4,7 +4,6 @@ $host = '127.0.0.1';//127.0.0.1
 $user = 'seat';//seat
 $password = 'seat995SEAT';//seat995SEAT
 $database = 'seat';//seat
-
 // 创建数据库连接
 $conn = new mysqli($host, $user, $password, $database);
 

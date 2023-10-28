@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+
+  <title>線上座位點名和評分整合系統</title>
+  <!-- loader-->
+  <link href="assets/css/pace.min.css" rel="stylesheet" />
+  <script src="assets/js/pace.min.js"></script>
+  <!--favicon-->
+  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <!-- Vector CSS -->
+  <link href="assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
+  <!-- simplebar CSS-->
+  <link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+  <!-- Bootstrap core CSS-->
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- animate CSS-->
+  <link href="assets/css/animate.css" rel="stylesheet" type="text/css" />
+  <!-- Icons CSS-->
+  <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+  <!-- Sidebar CSS-->
+  <link href="assets/css/sidebar-menu.css" rel="stylesheet" />
+  <!-- Custom Style-->
+  <link href="assets/css/app-style.css" rel="stylesheet" />
+
+</head>
+
+<body class="bg-theme bg-theme1">
+
+  <!-- Start wrapper-->
+  <div id="wrapper">
+
+    <!--Start sidebar-wrapper-->
+    <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
+      <div class="brand-logo">
+        <a href="index.html">
+          <img src="assets/images/logo-icon.png" class="logo-icon" alt="logo icon">
+          <h5 class="logo-text">線上座位點名和評分整合系統</h5>
+      
+        </a>
+      </div>
+      <ul class="sidebar-menu do-nicescrol">
+        <li class="sidebar-header">選項</li>
+        <li>
+        <li>
+          <a href="index.html">
+            <i class="zmdi zmdi-view-dashboard"></i> <span>首頁</span>
+          </a>
+        </li>
+        <li>
+          <a href="學生座位編排.html">
+            <i class="zmdi zmdi-view-dashboard"></i> <span>學生座位編排</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="學生評分.html">
+            <i class="zmdi zmdi-view-dashboard"></i> <span>學生評分</span>
+          </a>
+        </li>
+        <li>
+          <a href="學生點名.html">
+            <i class="zmdi zmdi-view-dashboard"></i> <span>學生評分</span>
+          </a>
+        </li>
+      </ul>
+
+    </div>
+    <!--End sidebar-wrapper-->
+
+    <!--Start topbar header-->
+    <header class="topbar-nav">
+      <nav class="navbar navbar-expand fixed-top">
+        <ul class="navbar-nav mr-auto align-items-center">
+          <li class="nav-item">
+            <a class="nav-link toggle-menu" href="javascript:void();">
+              <i class="icon-menu menu-icon"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <form class="search-bar">
+              <input type="text" class="form-control" placeholder="Enter keywords">
+              <a href="javascript:void();"><i class="icon-magnifier"></i></a>
+            </form>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav align-items-center right-nav-link">
+          <li class="nav-item dropdown-lg">
+            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown"
+              href="javascript:void();">
+              <i class="fa fa-envelope-open-o"></i></a>
+          </li>
+          <li class="nav-item dropdown-lg">
+            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown"
+              href="javascript:void();">
+              <i class="fa fa-bell-o"></i></a>
+          </li>
+          <li class="nav-item language">
+            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret waves-effect" data-toggle="dropdown"
+              href="javascript:void();"><i class="fa fa-flag"></i></a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li class="dropdown-item"> <i class="flag-icon flag-icon-gb mr-2"></i> English</li>
+              <li class="dropdown-item"> <i class="flag-icon flag-icon-fr mr-2"></i> French</li>
+              <li class="dropdown-item"> <i class="flag-icon flag-icon-cn mr-2"></i> Chinese</li>
+              <li class="dropdown-item"> <i class="flag-icon flag-icon-de mr-2"></i> German</li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown" href="#">
+              <span class="user-profile"><img src="https://via.placeholder.com/110x110" class="img-circle"
+                  alt="user avatar"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li class="dropdown-item user-details">
+                <a href="javaScript:void();">
+                  <div class="media">
+                    <div class="avatar"><img class="align-self-start mr-3" src="https://via.placeholder.com/110x110"
+                        alt="user avatar"></div>
+                    <div class="media-body">
+                      <h6 class="mt-2 user-title">Sarajhon Mccoy</h6>
+                      <p class="user-subtitle">mccoy@example.com</p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="dropdown-divider"></li>
+              <li class="dropdown-item"><i class="icon-envelope mr-2"></i> Inbox</li>
+              <li class="dropdown-divider"></li>
+              <li class="dropdown-item"><i class="icon-wallet mr-2"></i> Account</li>
+              <li class="dropdown-divider"></li>
+              <li class="dropdown-item"><i class="icon-settings mr-2"></i> Setting</li>
+              <li class="dropdown-divider"></li>
+              <li class="dropdown-item"><i class="icon-power mr-2"></i> Logout</li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <!--End topbar header-->
+
+    <div class="clearfix"></div>
+
+    <div class="content-wrapper">
+      <div class="container-fluid">
+
+        <!--Start Dashboard Content-->
+        <script src="your-script.js"></script>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-4">
+                  <div class="student-list">
+                    <h3>學生名單：</h3>
+                    <div>
+                      <label for="student1" style="text-align: right;">
+                        <input type="checkbox" name="studentList" id="student1" value="學號1">
+                        學號1, 姓名: 學生1
+                      </label>
+                    </div>
+                    <div>
+                      <label for="student2" style="text-align: right;">
+                        <input type="checkbox" name="studentList" id="student2" value="學號2">
+                        學號2, 姓名: 學生2
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="table-generator">
+                    <label for="rows">行數：</label>
+                    <input type="number" id="rows" min="1" max="10">
+                    <label for="columns">列數：</label>
+                    <input type="number" id="columns" min="1" max="10">
+                    <button class="btn btn-primary" id="generateButton" onclick="generateTable()">生成表格</button>
+                    <button class="btn btn-danger"id="clearButton" onclick="clearTable()">清空表格</button>
+                    <button class="btn btn-primary" id="selectAllButton" onclick="selectAll()">全部選取</button>
+                    <button class="btn btn-primary" id="deselectAllButton" onclick="deselectAll()">取消選取</button>
+                    <button class="btn btn-info" id=" randomFillTableButton" onclick=" randomFillTable()">隨機填充</button>
+                    <button id="exchangeSeatsButton" onclick="exchangeSeats()" class="btn btn-warning">座位交換</button>
+
+                    <button class="btn btn-success"id="saveButton" onclick="saveTableData()" id="save-button">儲存</button>
+                    <button class="btn btn-secondary" id="addRowButton" onclick="addRow()">增加行</button>
+                    <button class="btn btn-secondary" id="addColumnButton" onclick="addColumn()">增加列</button>
+                    <button class="btn btn-secondary" id="removeRowButton" onclick="removeRow()">減少行</button>
+                    <button class="btn btn-secondary" id="removeColumnButton" onclick="removeColumn()">減少列</button>
+
+                    <div id="randomButton"></div>
+                  </div>
+                  <div>
+                    <div>
+                      <div class="col-3">
+                        <div class="table">
+                          
+                            <table class="table-bordered" style="background-color: rgb(139, 218, 176);" id="table">
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+                  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+                  <script>
+                    
+                  let studentData = [];
+                  let selectedStudentData = [];
+                  let tableData = [];
+                  
+                  // 當頁面加載時獲取學生名單
+                  async function getData() {
+                      try {
+                          const response = await axios.get(CONFIG.studentDataURL);
+                          studentData = response.data;
+                          generateStudentList();
+                      } catch (error) {
+                          console.error('Error fetching student data:', error);
+                          alert('無法獲取學生數據');
+                      }
+                  }
+                  
+                  document.getElementById('rows').addEventListener('change', function() {
+                      if (this.value < 1) {
+                          this.value = 1;
+                          alert('行數不得小於1。');
+                      } else if (this.value > 10) {
+                          this.value = 10;
+                          alert('行數不得大於10。');
+                      }
+                  });
+                  
+                  document.getElementById('columns').addEventListener('change', function() {
+                      if (this.value < 1) {
+                          this.value = 1;
+                          alert('列數不得小於1。');
+                      } else if (this.value > 10) {
+                          this.value = 10;
+                          alert('列數不得大於10。');
+                      }
+                  });
+
+// 當頁面加載時獲取學生名單
+async function getData() {
+    try {
+        const response = await axios.get('學生名單.php');
+        selectedStudents = response.data;
+        generateStudentList();
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+// 動態生成學生列表
+function generateStudentList() {
+    const studentList = document.querySelector('.student-list');
+    studentList.innerHTML = '';
+
+    selectedStudents.forEach((student, index) => {
+        const studentCheckbox = document.createElement('div');
+        studentCheckbox.innerHTML = `
+            <label for="student${index + 1}">
+                <input type="checkbox" name="studentList" id="student${index + 1}" value="${student.學號 + ' ' + student.姓名}">
+                學號: ${student.學號} 姓名: ${student.姓名}
+            </label>
+        `;
+        const checkbox = studentCheckbox.querySelector(`#student${index + 1}`);
+        checkbox.addEventListener('click', (event) => {
+            if (event.target.checked) {
+                studentCheckbox.style.backgroundColor = 'lightblue';
+                const 學號 = student.學號;
+                const 姓名 = student.姓名;
+                selectedStudentData.push({ 學號, 姓名 });
+            } else {
+                studentCheckbox.style.backgroundColor = 'transparent';
+                const indexToRemove = selectedStudentData.findIndex(selected => selected.學號 === student.學號);
+                if (indexToRemove !== -1) {
+                    selectedStudentData.splice(indexToRemove, 1);
+                }
+            }
+        });
+        studentList.appendChild(studentCheckbox);
+    });
+}
+// 隨機填充表格
+function randomFillTable() {
+  const table = document.getElementById('table');
+  table.innerHTML = '';
+  tableData = [];
+  const rows = document.getElementById('rows').value;
+  const columns = document.getElementById('columns').value;
+
+  if (selectedStudentData.length === 0) {
+      alert("請選擇至少一位學生。");
+      return;
+  }
+
+  let studentsForFilling = [...selectedStudentData];
+
+  for (let i = 0; i < rows; i++) {
+      const row = table.insertRow(i);
+      const rowData = [];
+      for (let j = 0; j < columns; j++) {
+          const cell = row.insertCell(j);
+          const randomIndex = Math.floor(Math.random() * studentsForFilling.length);
+          const selectedStudent = studentsForFilling.splice(randomIndex, 1)[0];
+          const rowIndex = i + 1;
+          const columnIndex = j + 1;
+
+          cell.innerHTML = `學號: ${selectedStudent.學號}<br>姓名: ${selectedStudent.姓名}<br>（第${rowIndex}排第${columnIndex}個）`;
+          rowData.push({ 學號: selectedStudent.學號, 姓名: selectedStudent.姓名, 第幾排: rowIndex, 第幾個: columnIndex });
+      }
+      tableData.push(rowData);
+  }
+}
+
+        // 生成表格
+        function generateTable() {
+            const table = document.getElementById('table');
+            table.innerHTML = '';
+            tableData = [];
+            const rows = document.getElementById('rows').value;
+            const columns = document.getElementById('columns').value;
+
+            if (selectedStudents.length === 0) {
+                alert("請選擇至少一位學生。");
+                return;
+            }
+
+            for (let i = 0; i < rows; i++) {
+                const row = table.insertRow(i);
+                const rowData = [];
+                for (let j = 0; j < columns; j++) {
+                    const cell = row.insertCell(j);
+                    const rowIndex = i + 1;
+                    const columnIndex = j + 1;
+
+                    // 創建一個按鈕元素並添加到單元格
+                    const addButton = document.createElement('button');
+                    addButton.textContent = '加入學生';
+                    addButton.setAttribute('data-row', rowIndex);
+                    addButton.setAttribute('data-col', columnIndex);
+                    addButton.addEventListener('click', addStudentToCell);
+                    cell.appendChild(addButton);
+
+                    rowData.push({ 第幾排: rowIndex, 第幾個: columnIndex, button: addButton });
+                }
+                tableData.push(rowData);
+            }
+        }
+
+        //行數防呆
+        function validateRowsAndColumns(rows, columns) {
+          if (rows < 1 || rows > 10 || columns < 1 || columns > 10) {
+              alert('請確保行數和列數在1到10的範圍內。');
+              return false;
+          }
+          return true;
+      }
+      //未生成表格防呆
+      function validateTableExists() {
+        if (tableData.length === 0) {
+            alert('請先生成表格。');
+            return false;
+        }
+        return true;
+    }
+    
+        // 將學生資訊添加到單元格
+        function addStudentToCell(event) {
+    const rowIndex = parseInt(event.target.getAttribute('data-row'));
+    const colIndex = parseInt(event.target.getAttribute('data-col'));
+
+    if (rowIndex <= 0 || colIndex <= 0 || rowIndex > tableData.length || colIndex > tableData[0].length) {
+        alert('無效的行或列索引。');
+        return;
+    }
+
+    if (selectedStudentData.length === 0) {
+        alert('請選擇至少一位學生。');
+        return;
+    }
+
+    const randomIndex = Math.floor(Math.random() * selectedStudentData.length);
+    const selectedStudent = selectedStudentData.splice(randomIndex, 1)[0]; // 從已選擇的學生列表中移除學生
+
+    const cell = tableData[rowIndex - 1][colIndex - 1];
+    const cellElement = cell.button.parentElement;
+
+    // 將學生資訊添加到單元格
+    cellElement.innerHTML = `學號: ${selectedStudent.學號}<br>姓名: ${selectedStudent.姓名}<br>（第${rowIndex}排第${colIndex}個）`;
+    cell.student = { 學號: selectedStudent.學號, 姓名: selectedStudent.姓名 };
+}
+//表格防呆
+function validateSelectedStudents() {
+    if (selectedStudents.length === 0) {
+        alert('請先選擇學生。');
+        return false;
+    }
+    return true;
+}
+
+
+
+        // 清除表格
+        function clearTable() {
+            const table = document.getElementById('table');
+            table.innerHTML = '';
+            tableData = [];
+        }
+
+// 全部選取
+function selectAll() {
+  const checkboxes = document.querySelectorAll('input[name="studentList"]');
+  checkboxes.forEach(checkbox => {
+      checkbox.checked = true;
+      const value = checkbox.value.split(' ');
+      const 學號 = value[0];
+      const 姓名 = value[1];
+      selectedStudentData.push({ 學號, 姓名 });
+  });
+}
+
+// 取消選取
+function deselectAll() {
+const checkboxes = document.querySelectorAll('input[name="studentList"]');
+checkboxes.forEach(checkbox => {
+    checkbox.checked = false;
+    const value = checkbox.value.split(' ');
+    const 學號 = value[0];
+    const indexToRemove = selectedStudentData.findIndex(selected => selected.學號 === 學號);
+    if (indexToRemove !== -1) {
+        selectedStudentData.splice(indexToRemove, 1);
+    }
+});
+}
+      // 重新渲染「加入學生」按鈕
+      function renderAddStudentButtons() {
+        const table = document.getElementById('table');
+        for (let i = 0; i < table.rows.length; i++) {
+            const row = table.rows[i];
+            for (let j = 0; j < row.cells.length; j++) {
+                const cell = row.cells[j];
+                
+                // 更具體地檢查按鈕的文本內容
+                const existingButton = cell.querySelector("button:contains('加入學生')");
+                if (!existingButton) {
+                    const addButton = document.createElement('button');
+                    addButton.textContent = '加入學生';
+                    addButton.setAttribute('data-row', i + 1);
+                    addButton.setAttribute('data-col', j + 1);
+                    addButton.addEventListener('click', addStudentToCell);
+                    cell.appendChild(addButton);
+                }
+            }
+        }
+      }
+      
+
+// 新增排
+function addRow() {
+  const table = document.getElementById('table');
+  const newRow = table.insertRow(-1);
+  
+  // 確保取得的值是整數
+  const columns = parseInt(document.getElementById('columns').value, 10);
+  
+  const rowData = [];
+  
+  for (let j = 0; j < columns; j++) {
+      const cell = newRow.insertCell(j);
+      const rowIndex = table.rows.length;
+      const columnIndex = j + 1;
+      
+      // 創建一個按鈕元素並添加到單元格
+      const addButton = document.createElement('button');
+      addButton.textContent = '加入學生';
+      addButton.setAttribute('data-row', rowIndex);
+      addButton.setAttribute('data-col', columnIndex);
+      addButton.addEventListener('click', addStudentToCell);
+      cell.appendChild(addButton);
+      
+      rowData.push({ 第幾排: rowIndex, 第幾個: columnIndex, button: addButton });
+  }
+  tableData.push(rowData);
+  renderAddStudentButtons();  // 確保每次新增行後，重新渲染按鈕
+}
+
+
+// 新增列
+function addColumn() {
+  const table = document.getElementById('table');
+  const rows = table.rows;
+
+  if (rows.length === 0) {
+      alert("請先生成表格。");
+      return;
+  }
+
+  for (let i = 0; i < rows.length; i++) {
+    const row = rows[i];
+    const cell = row.insertCell(-1);
+    const rowIndex = i + 1;
+    const columnIndex = row.cells.length;
+    
+    // 創建一個按鈕元素並添加到單元格
+    const addButton = document.createElement('button');
+    addButton.textContent = '加入學生';
+    addButton.setAttribute('data-row', rowIndex);
+    addButton.setAttribute('data-col', columnIndex);
+    addButton.addEventListener('click', addStudentToCell);
+    cell.appendChild(addButton);
+    
+    if (!tableData[i]) {
+        tableData[i] = [];
+    }
+    tableData[i].push({ 第幾排: rowIndex, 第幾個: columnIndex, button: addButton });
+}
+renderAddStudentButtons();  // 確保每次新增列後，重新渲染按鈕
+}
+
+// 減少排
+function removeRow() {
+  const table = document.getElementById('table');
+  if (!validateTableExists()) return;
+  if (table.rows.length > 0) {
+      table.deleteRow(-1);
+      tableData.pop();
+      renderAddStudentButtons();
+  }
+}
+
+// 減少列
+function removeColumn() {
+  const table = document.getElementById('table');
+  const rows = table.rows;
+
+  if (!validateTableExists()) return;
+  if (rows.length > 0 && rows[0].cells.length > 0) {
+      for (let i = 0; i < rows.length; i++) {
+          const row = rows[i];
+          row.deleteCell(-1);
+          tableData[i].pop();
+      }
+      renderAddStudentButtons();
+  }
+}
+
+// 儲存表格數據到數據庫
+function saveTableData() {
+    if (tableData.length === 0) {
+        alert("請先生成表格。");
+        return;
+    }
+
+    axios.post('座位資料表.php', { tableData: tableData })
+        .then(response => {
+            console.log(response.data);
+            alert('表格數據已成功保存到資料庫。');
+        })
+        .catch(error => {
+            console.error(error);
+            alert('保存表格數據時出現錯誤。');
+        });
+}
+
+
+// 頁面加載時獲取學生名單
+getData();
+                  </script>
+
+
+                  <!--End Dashboard Content-->
+
+                  <!--start overlay-->
+                  <div class="overlay toggle-menu"></div>
+                  <!--end overlay-->
+
+                </div>
+                <!-- End container-fluid-->
+
+              </div><!--End content-wrapper-->
+              <!--Start Back To Top Button-->
+              <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+              <!--End Back To Top Button-->
+
+              <!--Start footer-->
+              <footer class="footer">
+                <div class="container">
+                  <div class="text-center">
+                    Copyright © 2018 Dashtreme Admin
+                  </div>
+                </div>
+              </footer>
+              <!--End footer-->
+
+              <!--start color switcher-->
+              <div class="right-sidebar">
+                <div class="switcher-icon">
+                  <i class="zmdi zmdi-settings zmdi-hc-spin"></i>
+                </div>
+                <div class="right-sidebar-content">
+
+                  <p class="mb-0">Gaussion Texture</p>
+                  <hr>
+
+                  <ul class="switcher">
+                    <li id="theme1"></li>
+                    <li id="theme2"></li>
+                    <li id="theme3"></li>
+                    <li id="theme4"></li>
+                    <li id="theme5"></li>
+                    <li id="theme6"></li>
+                  </ul>
+
+                  <p class="mb-0">Gradient Background</p>
+                  <hr>
+
+                  <ul class="switcher">
+                    <li id="theme7"></li>
+                    <li id="theme8"></li>
+                    <li id="theme9"></li>
+                    <li id="theme10"></li>
+                    <li id="theme11"></li>
+                    <li id="theme12"></li>
+                    <li id="theme13"></li>
+                    <li id="theme14"></li>
+                    <li id="theme15"></li>
+                  </ul>
+
+                </div>
+              </div>
+              <!--end color switcher-->
+
+            </div><!--End wrapper-->
+
+            <!-- Bootstrap core JavaScript-->
+            <script src="assets/js/jquery.min.js"></script>
+            <script src="assets/js/popper.min.js"></script>
+            <script src="assets/js/bootstrap.min.js"></script>
+
+            <!-- simplebar js -->
+            <script src="assets/plugins/simplebar/js/simplebar.js"></script>
+            <!-- sidebar-menu js -->
+            <script src="assets/js/sidebar-menu.js"></script>
+            <!-- loader scripts -->
+            <script src="assets/js/jquery.loading-indicator.js"></script>
+            <!-- Custom scripts -->
+            <script src="assets/js/app-script.js"></script>
+            <!-- Chart js -->
+
+            <script src="assets/plugins/Chart.js/Chart.min.js"></script>
+
+            <!-- Index js -->
+            <script src="assets/js/index.js"></script>
+
+
+</body>
+
+</html>

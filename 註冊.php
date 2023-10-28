@@ -1,15 +1,15 @@
 <?php
-$host = '127.0.0.1';//127.0.0.1
-$user = 'seat';//seat
-$password = 'seat995SEAT';//seat995SEAT
-$database = 'seat';//seat
+$host = 'localhost';
+$user = 'seat';
+$password = 'seat995SEAT';
+$database = 'seat';
 
-// 建立資料庫連線
+// 建立 MySQLi 連接
 $conn = new mysqli($host, $user, $password, $database);
 
-// 檢查連線是否成功
+// 檢查連接是否成功
 if ($conn->connect_error) {
-    die("連線失敗: " . $conn->connect_error);
+    die("連接失敗: " . $conn->connect_error);
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
